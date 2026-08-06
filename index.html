@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matbans LLC — ABD Pazarına Açılma Danışmanlığı</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F1B2E;
+    --paper:#F3F5F3;
+    --paper-2:#EAEDE9;
+    --route:#C99A3F;
+    --route-light:#E4C077;
+    --steel:#3E5C76;
+    --slate:#5B6470;
+    --line:#D7DAD3;
+    --white:#FFFFFF;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Newsreader',serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  section{padding:96px 0;}
+  @media (max-width:720px){ section{padding:64px 0;} }
+
+  /* ---------- focus & motion ---------- */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--route);
+    outline-offset:3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,245,243,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px; max-width:1120px; margin:0 auto;
+  }
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo svg{height:26px; width:auto;}
+  .logo-text{font-family:'Newsreader',serif; font-size:20px; font-weight:600; letter-spacing:0.02em;}
+  .navlinks{display:flex; gap:32px; font-size:14px;}
+  .navlinks a{color:var(--slate); transition:color .15s;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks{display:flex;}
+  @media (max-width:640px){ .navlinks{display:none;} }
+  .nav-cta{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+    border:1px solid var(--ink); padding:9px 16px; border-radius:var(--radius);
+    transition:background .15s, color .15s;
+  }
+  .nav-cta:hover{background:var(--ink); color:var(--paper);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:88px 0 40px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--steel); display:flex; align-items:center; gap:10px; margin-bottom:26px;
+  }
+  .eyebrow .dot{width:6px;height:6px;background:var(--route);border-radius:50%;}
+  h1.headline{
+    font-size:clamp(38px, 6vw, 68px);
+    line-height:1.04;
+    max-width:16ch;
+    margin-bottom:28px;
+  }
+  h1.headline em{font-style:italic; color:var(--steel);}
+  .hero-sub{
+    font-size:18px; color:var(--slate); max-width:46ch; margin-bottom:40px;
+  }
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:72px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
+    padding:14px 24px; border-radius:var(--radius);
+    transition:transform .15s ease, background .15s, color .15s, border-color .15s;
+  }
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-primary:hover{background:var(--steel); transform:translateY(-1px);}
+  .btn-ghost{border:1px solid var(--ink); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--steel); color:var(--steel); transform:translateY(-1px);}
+
+  /* ---------- route signature graphic ---------- */
+  .route-wrap{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:28px 0; overflow:hidden;}
+  .route-svg{width:100%; height:auto; display:block;}
+  .route-line{stroke-dasharray:6 7; animation:dash 22s linear infinite;}
+  @keyframes dash{to{stroke-dashoffset:-260;}}
+  .route-node text{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em; fill:var(--slate); text-transform:uppercase;}
+  .route-plane{animation:travel 7s ease-in-out infinite;}
+  @keyframes travel{
+    0%{ transform:translateX(0); }
+    50%{ transform:translateX(6px); }
+    100%{ transform:translateX(0); }
+  }
+
+  /* ---------- about ---------- */
+  .about{
+    display:grid; grid-template-columns:1fr 1.4fr; gap:64px; align-items:start;
+  }
+  @media (max-width:800px){ .about{grid-template-columns:1fr; gap:32px;} }
+  .section-label{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--route); margin-bottom:18px; display:block;
+  }
+  .about h2{font-size:clamp(28px,3.4vw,38px); max-width:12ch;}
+  .about-body p{font-size:17px; color:var(--slate); margin-bottom:18px; max-width:60ch;}
+  .about-body strong{color:var(--ink); font-weight:600;}
+  .stat-row{display:flex; gap:40px; margin-top:36px; flex-wrap:wrap;}
+  .stat{border-left:2px solid var(--route); padding-left:14px;}
+  .stat .num{font-family:'Newsreader',serif; font-size:34px; font-weight:600; line-height:1;}
+  .stat .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--slate); margin-top:6px;}
+
+  /* ---------- process (route steps) ---------- */
+  .process{background:var(--ink); color:var(--paper);}
+  .process .section-label{color:var(--route-light);}
+  .process h2{color:var(--paper); font-size:clamp(28px,3.4vw,38px); max-width:16ch; margin-bottom:56px;}
+  .route-list{border-top:1px solid rgba(243,245,243,0.15);}
+  .route-item{
+    display:grid; grid-template-columns:120px 1fr; gap:24px;
+    padding:26px 0; border-bottom:1px solid rgba(243,245,243,0.15);
+  }
+  @media (max-width:640px){ .route-item{grid-template-columns:1fr; gap:6px;} }
+  .route-code{font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.06em; color:var(--route-light);}
+  .route-item h3{color:var(--paper); font-size:20px; font-weight:500; margin-bottom:6px;}
+  .route-item p{color:#B7BFC9; font-size:15px; max-width:62ch;}
+
+  /* ---------- package ---------- */
+  .package{}
+  .package-card{
+    border:1px solid var(--ink); border-radius:var(--radius);
+    padding:48px; background:var(--white);
+    display:grid; grid-template-columns:1.2fr 1fr; gap:48px;
+  }
+  @media (max-width:800px){ .package-card{grid-template-columns:1fr; padding:32px;} }
+  .package-tag{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--steel); margin-bottom:10px; display:block;}
+  .package-card h3{font-size:30px; margin-bottom:14px;}
+  .package-desc{color:var(--slate); font-size:16px; margin-bottom:24px; max-width:48ch;}
+  .package-list{list-style:none;}
+  .package-list li{
+    display:flex; gap:12px; align-items:flex-start; font-size:15px; color:var(--ink);
+    padding:10px 0; border-top:1px solid var(--line);
+  }
+  .package-list li:first-child{border-top:none;}
+  .package-list li::before{content:"—"; color:var(--route); flex-shrink:0;}
+  .price-box{
+    background:var(--paper-2); border-radius:var(--radius); padding:32px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .price-usd{font-family:'Newsreader',serif; font-size:48px; font-weight:600; line-height:1;}
+  .price-try{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--slate); margin-top:8px;}
+  .price-note{font-size:12px; color:var(--slate); margin-top:4px; margin-bottom:28px;}
+  .price-box .btn{justify-content:center; width:100%;}
+
+  /* ---------- brands ---------- */
+  .brands h2{font-size:clamp(28px,3.4vw,38px); max-width:14ch; margin-bottom:12px;}
+  .brands-sub{color:var(--slate); font-size:16px; max-width:56ch; margin-bottom:48px;}
+  .brand-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  @media (max-width:720px){ .brand-grid{grid-template-columns:1fr;} }
+  .brand-tile{
+    background:var(--white); padding:36px 28px; position:relative; min-height:150px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:background .15s;
+  }
+  .brand-tile.live:hover{background:var(--paper-2);}
+  .brand-name{font-family:'Newsreader',serif; font-size:22px; font-weight:600;}
+  .brand-status{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--steel); align-self:flex-start; margin-bottom:14px;
+  }
+  .brand-status.soon{color:var(--slate);}
+  .brand-tile.soon{opacity:0.6;}
+  .brand-link{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--route); margin-top:16px;}
+
+  /* ---------- contact ---------- */
+  .contact{background:var(--ink); color:var(--paper);}
+  .contact-inner{display:grid; grid-template-columns:1.2fr 1fr; gap:56px;}
+  @media (max-width:800px){ .contact-inner{grid-template-columns:1fr; gap:36px;} }
+  .contact h2{color:var(--paper); font-size:clamp(30px,4vw,44px); max-width:12ch; margin-bottom:20px;}
+  .contact-sub{color:#B7BFC9; font-size:17px; max-width:44ch; margin-bottom:8px;}
+  .contact .section-label{color:var(--route-light);}
+  .contact-list{margin-top:32px;}
+  .contact-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 0; border-top:1px solid rgba(243,245,243,0.15);
+    font-size:15px;
+  }
+  .contact-row:last-child{border-bottom:1px solid rgba(243,245,243,0.15);}
+  .contact-row .k{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8B95A3;}
+  .contact-row .v a{color:var(--paper); border-bottom:1px solid var(--route); padding-bottom:2px;}
+  .contact-row .v a:hover{color:var(--route-light);}
+
+  /* ---------- footer ---------- */
+  footer{padding:32px 0; border-top:1px solid var(--line);}
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+  }
+  .footer-inner .mono{font-size:11px; color:var(--slate);}
+  .social-row{display:flex; gap:18px;}
+  .social-row a{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--slate); transition:color .15s;}
+  .social-row a:hover{color:var(--route);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="logo" aria-label="Matbans anasayfa">
+      <svg viewBox="0 0 40 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M2 24 L2 4 L11 24 L20 4" stroke="#0F1B2E" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24 4 C24 4 30 4 30 10 C30 14 26 15 26 15 C26 15 32 16 32 21 C32 26 24 26 24 26" stroke="#0F1B2E" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="37" cy="6" r="2.4" fill="#C99A3F"/>
+      </svg>
+      <span class="logo-text">Matbans</span>
+    </a>
+    <nav class="navlinks">
+      <a href="#hakkimizda">Hakkımızda</a>
+      <a href="#hizmet">Hizmet</a>
+      <a href="#brands">Brands</a>
+      <a href="#iletisim">İletişim</a>
+    </nav>
+    <a class="nav-cta" href="https://wa.me/905322279460" target="_blank" rel="noopener">Randevu Al</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow"><span class="dot"></span> Türkiye — ABD İhracat &amp; E-Ticaret Danışmanlığı</div>
+      <h1 class="headline">Markanızı <em>Amerika</em> pazarına taşıyoruz.</h1>
+      <p class="hero-sub">12 yılı aşkın e-ticaret deneyimiyle; ürün, listeleme, lojistik, reklam, ihracat ve devlet teşviklerine kadar tüm süreci uçtan uca planlıyor, birlikte yürütüyoruz.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#hizmet">Tanışma Paketini İncele</a>
+        <a class="btn btn-ghost" href="https://wa.me/905322279460" target="_blank" rel="noopener">WhatsApp'tan Yazın</a>
+      </div>
+    </div>
+    <div class="route-wrap">
+      <svg class="route-svg" viewBox="0 0 1120 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Türkiye'den Amerika'ya ticaret rotası">
+        <line x1="60" y1="45" x2="1060" y2="45" stroke="#D7DAD3" stroke-width="1.5"/>
+        <line class="route-line" x1="60" y1="45" x2="1060" y2="45" stroke="#C99A3F" stroke-width="1.5"/>
+        <g class="route-node"><circle cx="60" cy="45" r="5" fill="#0F1B2E"/><text x="60" y="72" text-anchor="middle">TR — İstanbul</text></g>
+        <g class="route-node"><circle cx="1060" cy="45" r="5" fill="#0F1B2E"/><text x="1060" y="72" text-anchor="middle">US — Market</text></g>
+        <g class="route-plane" transform="translate(560,45)">
+          <circle r="4.5" fill="#C99A3F"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="hakkimizda">
+    <div class="wrap about">
+      <div>
+        <span class="section-label">001 — Hakkımızda</span>
+        <h2>Sahada öğrenilen, sahada uygulanan bir deneyim.</h2>
+      </div>
+      <div class="about-body">
+        <p>Matbans, <strong>12 yılı aşkın e-ticaret deneyimiyle</strong> üretici markaların Amerika Birleşik Devletleri özelinde global pazara açılma sürecinde yanında duruyor. Halihazırda e-ticaret yapan ya da bu alana yeni adım atmayı planlayan markalara; <strong>ürün seçimi, listeleme, optimizasyon, lojistik, depo ve iade yönetimi</strong> gibi operasyonel konulardan, <strong>reklam stratejisi, ihracat süreçleri ve devlet teşvik/hibelerine</strong> kadar markalaşma yolculuğunun tüm aşamalarında destek veriyor.</p>
+        <p>Sürecin büyüklüğüne göre kendim ya da iş ortağı olduğum firmalarla birlikte, uçtan uca bir ekip olarak çalışıyoruz — tek bir danışmanlık toplantısı değil, markanızın Amerika'daki karşılığını gerçekten kuran bir ortaklık.</p>
+        <div class="stat-row">
+          <div class="stat"><div class="num">12+</div><div class="lbl">Yıl Deneyim</div></div>
+          <div class="stat"><div class="num">TR→US</div><div class="lbl">Odak Pazar</div></div>
+          <div class="stat"><div class="num">1:1</div><div class="lbl">Kişiye Özel Süreç</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="wrap">
+      <span class="section-label">002 — Süreç</span>
+      <h2>Ürünün rafta durmasından, markanın Amerika'da büyümesine.</h2>
+      <div class="route-list">
+        <div class="route-item">
+          <div class="route-code">ROUTE / 01</div>
+          <div><h3>Ürün &amp; Pazar Uyumu</h3><p>Ürününüzün ABD pazarındaki potansiyelini, rekabeti ve doğru kategori/kanal seçimini birlikte değerlendiriyoruz.</p></div>
+        </div>
+        <div class="route-item">
+          <div class="route-code">ROUTE / 02</div>
+          <div><h3>Listeleme &amp; Optimizasyon</h3><p>Ürün sayfaları, içerik ve listeleme stratejisini ABD tüketicisine göre kuruyoruz.</p></div>
+        </div>
+        <div class="route-item">
+          <div class="route-code">ROUTE / 03</div>
+          <div><h3>Lojistik, Depo &amp; İade</h3><p>Depolama, kargo ve iade süreçlerini operasyonel olarak sürdürülebilir hale getiriyoruz.</p></div>
+        </div>
+        <div class="route-item">
+          <div class="route-code">ROUTE / 04</div>
+          <div><h3>Reklam &amp; Büyüme</h3><p>Satış hacmini artıracak reklam ve büyüme stratejisini kurguluyoruz.</p></div>
+        </div>
+        <div class="route-item">
+          <div class="route-code">ROUTE / 05</div>
+          <div><h3>İhracat, Teşvik &amp; Hibeler</h3><p>İhracat süreçlerini ve yararlanabileceğiniz devlet teşvik/hibe fırsatlarını değerlendiriyoruz.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGE -->
+  <section id="hizmet" class="package">
+    <div class="wrap">
+      <span class="section-label">003 — Hizmet</span>
+      <h2 style="font-size:clamp(28px,3.4vw,38px); max-width:14ch; margin-bottom:40px;">Başlamak için tek adım.</h2>
+      <div class="package-card">
+        <div>
+          <span class="package-tag">ecom101</span>
+          <h3>Tanışma Paketi</h3>
+          <p class="package-desc">Markanızın Amerika pazarına açılma potansiyelini birlikte değerlendirdiğimiz, sürecin nasıl ilerleyeceğine dair net bir yol haritasının çıkarıldığı ilk görüşme.</p>
+          <ul class="package-list">
+            <li>45–60 dakika birebir görüşme</li>
+            <li>Mevcut durum ve pazar potansiyeli analizi</li>
+            <li>Size özel kanal ve strateji önerisi</li>
+            <li>Sonraki adımlar için somut yol haritası</li>
+          </ul>
+        </div>
+        <div class="price-box">
+          <div>
+            <div class="price-usd">$100</div>
+            <div class="price-try">≈ 4.750 ₺</div>
+            <div class="price-note">Güncel kur baz alınarak hesaplanır, gün içi değişebilir.</div>
+          </div>
+          <a class="btn btn-primary" href="https://wa.me/905322279460?text=Merhaba%2C%20ecom101%20tan%C4%B1%C5%9Fma%20paketi%20i%C3%A7in%20randevu%20almak%20istiyorum." target="_blank" rel="noopener">Randevu Al</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section id="brands" class="brands">
+    <div class="wrap">
+      <span class="section-label">004 — Brands</span>
+      <h2>Yürüttüğümüz markalar.</h2>
+      <p class="brands-sub">Matbans çatısı altında ve iş ortaklığı yaptığımız markalar. Her biri kendi sayfasında yayına alınıyor.</p>
+      <div class="brand-grid">
+        <div class="brand-tile live">
+          <span class="brand-status">Aktif</span>
+          <div>
+            <div class="brand-name">Matbans</div>
+            <a class="brand-link" href="#top">matbans.com ↗</a>
+          </div>
+        </div>
+        <a class="brand-tile soon" href="https://aryalovin.com" target="_blank" rel="noopener">
+          <span class="brand-status soon">Yakında</span>
+          <div>
+            <div class="brand-name">Aryalovin</div>
+            <span class="brand-link">aryalovin.com ↗</span>
+          </div>
+        </a>
+        <div class="brand-tile soon">
+          <span class="brand-status soon">Yakında</span>
+          <div>
+            <div class="brand-name">Yeni Marka</div>
+            <span class="brand-link">Yakında eklenecek</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="iletisim" class="contact">
+    <div class="wrap contact-inner">
+      <div>
+        <span class="section-label">005 — İletişim</span>
+        <h2>Konuşmaya hazır mıyız?</h2>
+        <p class="contact-sub">Sorularınız için WhatsApp'tan yazabilir ya da doğrudan arayabilirsiniz.</p>
+      </div>
+      <div class="contact-list">
+        <div class="contact-row"><span class="k">Telefon</span><span class="v"><a href="tel:+905322279460">0532 227 94 60</a></span></div>
+        <div class="contact-row"><span class="k">WhatsApp</span><span class="v"><a href="https://wa.me/905322279460" target="_blank" rel="noopener">Mesaj Gönder</a></span></div>
+        <div class="contact-row"><span class="k">E-posta</span><span class="v"><a href="mailto:info@matbans.com">info@matbans.com</a></span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span class="mono">© 2026 MATBANS LLC — TÜM HAKLARI SAKLIDIR</span>
+    <div class="social-row">
+      <a href="#" aria-disabled="true">Instagram</a>
+      <a href="#" aria-disabled="true">LinkedIn</a>
+      <a href="https://wa.me/905322279460" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
