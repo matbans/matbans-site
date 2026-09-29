@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(python3 -m http.server:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(rm -rf:*)"
+    ]
+  }
+}
