@@ -535,5 +535,81 @@
     els.forEach(function(el){ el.classList.add('reveal'); io.observe(el); });
   })();
 </script>
+<script>
+  // Müşteri takibi: tıklama olayları + kaynak (UTM/gclid) yakalama + Cal.com/Stripe linklerine kimlik taşıma.
+  // GTM kurulunca GTM_ID'yi doldur ve yukarıdaki gtag bloğunu kaldır (bkz. docs/takip-kurulum.md).
+  (function(){
+    var GA = 'G-SXCJRCN9VC', GTM_ID = '';
+    var KEYS = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid'];
+    function track(name, p){
+      p = p || {};
+      try{
+        if(GTM_ID){ var o = {event:name}; for(var k in p) o[k] = p[k]; window.dataLayer.push(o); }
+        else { gtag('event', name, p); }
+      }catch(e){}
+    }
+    function store(area, key, val){ try{ window[area].setItem(key, JSON.stringify(val)); }catch(e){} }
+    function load(area, key){ try{ return JSON.parse(window[area].getItem(key)); }catch(e){ return null; } }
+
+    // 1) Kaynak yakalama: ilk temas (kalıcı) + son temas
+    var q = new URLSearchParams(location.search), cur = {}, has = false;
+    KEYS.forEach(function(k){ if(q.get(k)){ cur[k] = q.get(k).slice(0,100); has = true; } });
+    if(!has && document.referrer){
+      try{
+        var rh = new URL(document.referrer).hostname;
+        if(rh && rh !== location.hostname){ cur.utm_source = rh; cur.utm_medium = 'referral'; has = true; }
+      }catch(e){}
+    }
+    cur.landing = location.pathname;
+    if(!load('localStorage','mb_first')){ store('localStorage','mb_first', cur); }
+    if(has || !load('localStorage','mb_last')){ store('localStorage','mb_last', cur); }
+    var attr = load('localStorage','mb_last') || cur;
+    var first = load('localStorage','mb_first') || cur;
+
+    // 2) Linklere kimlik taşıma: Cal.com → metadata[...], Stripe → client_reference_id
+    function decorate(cid){
+      document.querySelectorAll('a[href]').forEach(function(a){
+        var u; try{ u = new URL(a.href); }catch(e){ return; }
+        if(u.hostname === 'cal.com'){
+          KEYS.forEach(function(k){ if(attr[k]) u.searchParams.set('metadata['+k+']', attr[k]); });
+          if(first.utm_source) u.searchParams.set('metadata[first_source]', first.utm_source);
+          if(cid) u.searchParams.set('metadata[ga_client_id]', cid);
+          a.href = u.toString();
+        } else if(u.hostname === 'buy.stripe.com' && cid){
+          u.searchParams.set('client_reference_id', 'ga_' + cid.replace(/[^A-Za-z0-9_-]/g,'_'));
+          a.href = u.toString();
+        }
+      });
+    }
+    try{ gtag('get', GA, 'client_id', function(cid){ decorate(cid); }); }catch(e){ decorate(null); }
+
+    // 3) Tıklama olayları
+    function kind(u, raw){
+      if(raw.indexOf('tel:') === 0) return 'phone_click';
+      if(raw.indexOf('mailto:') === 0) return 'email_click';
+      if(u.hostname === 'cal.com') return 'booking_click';
+      if(u.hostname === 'buy.stripe.com') return 'payment_click';
+      if(u.hostname === 'wa.me') return 'whatsapp_click';
+      if(u.hostname !== location.hostname) return 'brand_click';
+      return null;
+    }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href]');
+      if(!a) return;
+      var raw = a.getAttribute('href'), u;
+      try{ u = new URL(a.href); }catch(err){ return; }
+      var name = kind(u, raw);
+      if(!name) return;
+      var sec = a.closest('section,header,footer');
+      track(name, {
+        link_url: raw.indexOf('tel:') === 0 || raw.indexOf('mailto:') === 0 ? raw : u.origin + u.pathname,
+        link_text: (a.textContent || '').trim().slice(0,60),
+        location: sec ? (sec.id || sec.className.split(' ')[0] || sec.tagName.toLowerCase()) : 'unknown',
+        first_source: first.utm_source || '(direct)',
+        last_source: attr.utm_source || '(direct)'
+      });
+    }, true);
+  })();
+</script>
 </body>
 </html>
