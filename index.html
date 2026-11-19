@@ -232,6 +232,21 @@
   .contact-row .v a{color:var(--paper); border-bottom:1px solid var(--route); padding-bottom:2px;}
   .contact-row .v a:hover{color:var(--route-light);}
 
+  /* ---------- closing CTA ---------- */
+  .cta-band{border-top:1px solid var(--line);}
+  .cta-inner{display:grid; grid-template-columns:1.3fr 1fr; gap:56px; align-items:center;}
+  .cta-inner h2{font-size:clamp(32px,4.6vw,52px); line-height:1.08; max-width:16ch; margin-bottom:16px;}
+  .cta-sub{color:var(--slate); font-size:17px; max-width:44ch; margin-bottom:32px;}
+  .cta-actions{display:flex; gap:16px; flex-wrap:wrap;}
+  .cta-art{color:var(--route); justify-self:end; width:100%; max-width:420px;}
+  .cta-art svg{width:100%; height:auto; display:block;}
+  @media (max-width:800px){
+    .cta-inner{grid-template-columns:1fr; gap:36px;}
+    .cta-art{justify-self:start; max-width:300px;}
+  }
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
   /* ---------- footer ---------- */
   footer{padding:32px 0; border-top:1px solid var(--line);}
   .footer-inner{
@@ -370,6 +385,42 @@
     </div>
   </section>
 
+  <!-- CTA -->
+  <section class="cta-band" id="cta" data-reveal>
+    <div class="wrap cta-inner">
+      <div>
+        <h2>ABD'de satışa hazır mısınız?</h2>
+        <p class="cta-sub">Türk üreticileri listelemeden lojistiğe kadar birlikte yürütüyoruz.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="https://cal.com/matbans/e-ticaret-101" target="_blank" rel="noopener">Randevu Al</a>
+          <a class="btn btn-ghost" href="#hizmet">Paketi İncele</a>
+        </div>
+      </div>
+      <div class="cta-art" aria-hidden="true">
+        <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- hull -->
+          <path d="M24 150 H456 L426 208 H72 Z"/>
+          <path d="M60 164 H436"/>
+          <!-- bridge -->
+          <rect x="56" y="100" width="52" height="50"/>
+          <rect x="64" y="80" width="36" height="20"/>
+          <path d="M72 80 V60 M72 66 H92 M64 112 H100 M64 124 H100 M64 136 H100"/>
+          <!-- containers: bottom row -->
+          <path d="M124 128 H404 V150 H124 Z M164 128 V150 M204 128 V150 M244 128 V150 M284 128 V150 M324 128 V150 M364 128 V150"/>
+          <!-- middle row -->
+          <path d="M124 106 H364 V128 M124 106 V128 M164 106 V128 M204 106 V128 M244 106 V128 M284 106 V128 M324 106 V128"/>
+          <!-- top row -->
+          <path d="M164 84 H324 V106 M164 84 V106 M204 84 V106 M244 84 V106 M284 84 V106"/>
+          <!-- container ribs -->
+          <path d="M134 135 V143 M144 135 V143 M154 135 V143 M214 135 V143 M224 135 V143 M234 135 V143 M294 135 V143 M304 135 V143 M314 135 V143 M374 135 V143 M384 135 V143 M394 135 V143 M174 113 V121 M184 113 V121 M194 113 V121 M254 113 V121 M264 113 V121 M274 113 V121 M334 113 V121 M344 113 V121 M354 113 V121 M214 91 V99 M224 91 V99 M234 91 V99 M294 91 V99 M304 91 V99 M314 91 V99"/>
+          <!-- water -->
+          <path d="M16 226 q14 -8 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0"/>
+          <path d="M40 244 q14 -8 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
   <!-- BRANDS -->
   <section id="brands" class="brands">
     <div class="wrap">
@@ -438,5 +489,18 @@
   </div>
 </footer>
 
+<script>
+  // Scroll-reveal for [data-reveal] sections; content stays visible if JS or IO is unavailable.
+  (function(){
+    var els = document.querySelectorAll('[data-reveal]');
+    if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){ return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.15});
+    els.forEach(function(el){ el.classList.add('reveal'); io.observe(el); });
+  })();
+</script>
 </body>
 </html>
